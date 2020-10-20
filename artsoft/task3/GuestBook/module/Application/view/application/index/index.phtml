@@ -1,0 +1,33 @@
+<?php
+
+$title ='Записи гостевой книги';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<p>
+  <a href="<?= $this->url('note', ['action' => 'add']) ?>">Добавить запись</a>
+</p>
+
+<div class="notes">
+<?php foreach ($this->notes as $note) : ?>
+<div class="note">
+  <div class="nick_date"><?= $this->escapeHtml($note->getNickname()) ?> (<?= $this->escapeHtml($note->getDateCreated()) ?>)</div>
+  <div class="msg"><?= $this->escapeHtml($note->getMsg()) ?></div>
+  <div class="img">
+    <?php if ($note->getImg()) { ?>
+      <img src="<?= $note->getImg() ?>" alt='картинка из БД'/>
+    <?php } ?>
+  </div>
+  <div class="note_actions">
+   <a href="<?= $this->url('note', ['action' => 'edit', 'id' => $note->getId()]) ?>">Редактировать</a> | 
+   <a href="<?= $this->url('note', ['action' => 'delete', 'id' => $note->getId()]) ?>">Удалить</a>
+  </div>
+</div>
+<hr/>
+<?php endforeach; ?>
+</div>
+<style>
+.note_actions {
+  font-size: 15px;
+}
+</style>
